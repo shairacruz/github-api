@@ -58,3 +58,14 @@ Main Domain: http://127.0.0.1:8000
 - Method: POST
 - Authorization: Bearer Token
   - Input the token generated from login/register
+  
+## BONUS - Humming Distance Exercise
+- Endpoint: /api/hamming-distance
+- Method: POST
+- Headers
+  - Accept : application/json
+- Body
+  - x-www-form-urlencoded
+  - Required parameters
+    - x
+    - y

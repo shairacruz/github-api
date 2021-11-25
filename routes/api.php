@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HammingDistance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/hamming-distance', [HammingDistance::class, 'compute']);
 
 // Login required
 Route::group(['middleware' => ['auth:sanctum']], function () {
