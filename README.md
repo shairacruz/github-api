@@ -15,6 +15,7 @@ Follow this instructions to setup the project:
 2. Make sure to configure .env file according to your local settings
 3. Run **composer install**
 4. Run MySQL and Redis servers
+5. Create **github_api** database
 5. Run **php artisan migrate**
 6. Run **php artisan serve**
 
@@ -37,6 +38,8 @@ Main Domain: http://127.0.0.1:8000
 ##### Login API
 - Endpoint: /api/login
 - Method: POST
+- Headers
+  - Accept : application/json
 - Body
   - x-www-form-urlencoded
   - Required parameters

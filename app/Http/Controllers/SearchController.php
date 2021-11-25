@@ -22,7 +22,7 @@ class SearchController extends Controller
         if (count($aUsername) > 10) {
             return [
                 'status_code' => ConstantLibrary::STATUS_CODE_100,
-                'message'     => 'Search exceeds max of 10 username'
+                'message'     => ConstantLibrary::STATUS_CODE_100_MESSAGE
             ];
         }
         sort($aUsername);
@@ -30,18 +30,21 @@ class SearchController extends Controller
         foreach ($aUsername as $sUser) {
             $aUserInfo[$sUser] = $this->getUsernameInformation($sUser);
         }
-        return $aUserInfo;
+        return [
+            'status_code' => ConstantLibrary::STATUS_CODE_200,
+            'data'        => $aUserInfo
+        ];
     }
 
     private function getUsernameInformation($sUsername){
         $aCachedId = Cache::store('redis')->get(ConstantLibrary::GITHUB_CACHE_KEY . $sUsername);
         $aDecodeCache = json_decode($aCachedId, true);
 
-        if(UtilityLibrary::isValidArray($aDecodeCache) === true) {
+        if (UtilityLibrary::isValidArray($aDecodeCache) === true) {
             return $aDecodeCache;
-        }else {
+        } else {
             $aUserInfo = $this->getUserFromGithub($sUsername);
-            Cache::store('redis')->put(ConstantLibrary::GITHUB_CACHE_KEY . $sUsername, json_encode($aUserInfo), 120); // 2 minutes
+            Cache::store('redis')->put(ConstantLibrary::GITHUB_CACHE_KEY . $sUsername, json_encode($aUserInfo), ConstantLibrary::CACHE_TIME); // 2 minutes
             return $aUserInfo;
         }
     }

@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function register (Request $oRequest) {
         $aData = $oRequest->validate([
-            'username' => 'required|string|unique:users,username',
+            'username' => 'required|string|alpha_dash|unique:users,username|max:50',
             'password' => 'required|string|confirmed'
         ]);
 
@@ -49,7 +49,8 @@ class AuthController extends Controller
 
         if (!$aUser || !Hash::check($aData['password'], $aUser->password)) {
             $oResponse = [
-                'message'     => ConstantLibrary::STATUS_CODE_300_MESSAGE
+                'status_code'  => ConstantLibrary::STATUS_CODE_300,
+                'message' => ConstantLibrary::STATUS_CODE_300_MESSAGE
             ];
             return response($oResponse, ConstantLibrary::STATUS_CODE_300);
         }

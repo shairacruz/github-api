@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Library\ConstantLibrary;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,8 +36,12 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            $aResponse = [
+                'status_code' => ConstantLibrary::STATUS_CODE_404,
+                'message'     => ConstantLibrary::STATUS_CODE_404_MESSAGE
+            ];
+            return response()->json($aResponse, ConstantLibrary::STATUS_CODE_404);
         });
     }
 }

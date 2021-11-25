@@ -45,6 +45,16 @@ class ConstantLibrary
     const STATUS_CODE_400 = 400;
 
     /**
+     * Status code: Client Error
+     */
+    const STATUS_CODE_404 = 404;
+
+    /**
+     * Status 404 message
+     */
+    const STATUS_CODE_404_MESSAGE = 'Endpoint not found';
+
+    /**
      * Cached duration: 2 mins
      */
     const CACHE_TIME = 120;
